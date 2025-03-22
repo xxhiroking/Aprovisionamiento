@@ -3,8 +3,10 @@ package mx.hiro.aprovisionamiento.util;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class SequenceUtil {
+    private static final Logger logger = Logger.getLogger(SequenceUtil.class.getName());
 
     public static int getNextValue(Connection connection, String sequenceName) throws SQLException {
         String sql = "{CALL nextval(?, ?)}"; // Llamada al procedimiento almacenado
@@ -18,8 +20,10 @@ public class SequenceUtil {
             if (callableStatement.wasNull()) {
                 throw new SQLException("Failed to retrieve next value for sequence: " + sequenceName);
             }
+            // Log the generated value for debugging
+            logger.info("Generated value for sequence '" + sequenceName + "': " + nextValue);
             // Validar el rango del valor generado para evitar truncamiento
-            if (nextValue < 0 || nextValue > 32767) { // Ajustar el rango según el tipo de columna (e.g., SMALLINT)
+            if (nextValue < -32768 || nextValue > 32767) { // Ajustar el rango según el tipo de columna (e.g., SMALLINT)
                 throw new SQLException("Generated value " + nextValue + " is out of range for column 'idIncidencias'.");
             }
             return nextValue;

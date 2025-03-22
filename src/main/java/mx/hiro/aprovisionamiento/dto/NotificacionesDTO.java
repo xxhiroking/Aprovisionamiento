@@ -3,16 +3,20 @@ package mx.hiro.aprovisionamiento.dto;
 import java.util.Date;
 
 public class NotificacionesDTO {
-    private int idOperacion;
+    private long idOperacion;
     private String nombreArchivo;
     private Date fechaAlta;
     private String usr;
     private String tipoOperacion;
-    private int idCifra;
-    private int idIncidencia;
+    private long idCifra;
+    private long idIncidencia;
     private Date fechaCreacion;
     private String estatus;
     private String version;
+
+    //Constantes para notificaciones iniciales
+    public static final String ESTATUS_INICIAL = "INICIAL";
+    public static final String VERSION_INICIAL = "1";
 
     public NotificacionesDTO(int idOperacion, String nombreArchivo, Date fechaAlta, String usr, String tipoOperacion, int idCifra, int idIncidencia, Date fechaCreacion, String estatus, String version) {
         this.idOperacion = idOperacion;
@@ -27,7 +31,7 @@ public class NotificacionesDTO {
         this.version = version;
     }
 
-    public int getIdOperacion() {
+    public long getIdOperacion() {
         return idOperacion;
     }
 
@@ -67,7 +71,7 @@ public class NotificacionesDTO {
         this.tipoOperacion = tipoOperacion;
     }
 
-    public int getIdCifra() {
+    public long getIdCifra() {
         return idCifra;
     }
 
@@ -75,7 +79,7 @@ public class NotificacionesDTO {
         this.idCifra = idCifra;
     }
 
-    public int getIdIncidencia() {
+    public long getIdIncidencia() {
         return idIncidencia;
     }
 
