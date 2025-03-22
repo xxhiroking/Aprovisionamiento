@@ -45,36 +45,38 @@ DELIMITER ;
 
 -- Crear la tabla de cifras
 CREATE TABLE cifras (
-    idCifras INT PRIMARY KEY,
-    idOperacion INT,
-    incidencias INT,
+    idCifras BIGINT PRIMARY KEY, -- Changed from INT to BIGINT
+    idOperacion BIGINT, -- Changed from INT to BIGINT
+    idIncidencias BIGINT, -- Changed from INT to BIGINT
     totalRecibidos INT,
     totalNOK INT,
     totalOK INT,
     usr VARCHAR(50),
     fechaCreacion DATETIME
+    -- FOREIGN KEY (idOperacion) REFERENCES notificaciones(idOperacion), -- Removed FK
+    -- FOREIGN KEY (idIncidencias) REFERENCES incidencias(idIncidencias) -- Removed FK
 );
 
 -- Crear la tabla de notificaciones
 CREATE TABLE notificaciones (
-    idOperacion INT PRIMARY KEY,
+    idOperacion BIGINT PRIMARY KEY, -- Changed from INT to BIGINT
     nombreArchivo VARCHAR(255),
     fechaAlta DATETIME,
     usr VARCHAR(50),
     tipoOperacion VARCHAR(50),
-    idCifras INT,
-    idDetalle INT,
-    idIncidencias INT,
+    idCifras BIGINT, -- Changed from INT to BIGINT
+    idIncidencias BIGINT, -- Changed from INT to BIGINT
     fechaCreacion DATETIME,
-    estatus VARCHAR(50),
-    FOREIGN KEY (idCifras) REFERENCES cifras(idCifras)
+    estatus VARCHAR(50)
+    -- FOREIGN KEY (idCifras) REFERENCES cifras(idCifras), -- Removed FK
+    -- FOREIGN KEY (idIncidencias) REFERENCES incidencias(idIncidencias) -- Removed FK
 );
 
 -- Crear la tabla de detalle
 CREATE TABLE detalle (
-    idDetalle INT PRIMARY KEY,
-    idOperacion INT,
-    idCifras INT,
+    idDetalle BIGINT PRIMARY KEY, -- Changed from INT to BIGINT
+    idOperacion BIGINT, -- Changed from INT to BIGINT
+    idCifras BIGINT, -- Changed from INT to BIGINT
     cliente VARCHAR(255),
     cuenta VARCHAR(50),
     folio VARCHAR(50) UNIQUE,
@@ -86,50 +88,53 @@ CREATE TABLE detalle (
     idConstancia INT,
     version VARCHAR(10),
     fechaCreacion DATETIME,
-    fechaCancelacion DATETIME,
-    FOREIGN KEY (idOperacion) REFERENCES notificaciones(idOperacion),
-    FOREIGN KEY (idCifras) REFERENCES cifras(idCifras)
+    fechaCancelacion DATETIME
+    -- FOREIGN KEY (idOperacion) REFERENCES notificaciones(idOperacion), -- Removed FK
+    -- FOREIGN KEY (idCifras) REFERENCES cifras(idCifras) -- Removed FK
 );
 
 -- Crear la tabla de incidencias
 CREATE TABLE incidencias (
-    idIncidencias INT PRIMARY KEY,
-    idOperacion INT,
+    idIncidencias BIGINT PRIMARY KEY, -- Changed from INT to BIGINT
+    idOperacion BIGINT, -- Changed from INT to BIGINT
+    idCifras BIGINT, -- Changed from INT to BIGINT
     fechaCreacion DATETIME,
     folio VARCHAR(50),
     cuenta VARCHAR(50),
     cliente VARCHAR(255),
     rfcE VARCHAR(13),
     rfcR VARCHAR(13),
-    idCifras INT,
     codError VARCHAR(50),
-    descripcionError TEXT,
-    FOREIGN KEY (idOperacion) REFERENCES notificaciones(idOperacion),
-    FOREIGN KEY (idCifras) REFERENCES cifras(idCifras)
+    descripcionError TEXT
+    -- FOREIGN KEY (idOperacion) REFERENCES notificaciones(idOperacion), -- Removed FK
+    -- FOREIGN KEY (idCifras) REFERENCES cifras(idCifras) -- Removed FK
 );
 
 -- Crear la tabla de bitacora
 CREATE TABLE bitacora (
-    idBitacora INT PRIMARY KEY,
-    idOperacion INT,
-    idIncidencias INT,
-    idCifras INT,
-    idDetalle INT,
+    idBitacora BIGINT PRIMARY KEY, -- Changed from INT to BIGINT
+    idOperacion BIGINT, -- Changed from INT to BIGINT
+    idIncidencias BIGINT, -- Changed from INT to BIGINT
+    idCifras BIGINT, -- Changed from INT to BIGINT
+    idDetalle BIGINT, -- Changed from INT to BIGINT
     folio VARCHAR(50),
     cuenta VARCHAR(50),
     cliente VARCHAR(255),
     fechaCreacion DATETIME,
     estatus VARCHAR(50),
-    version VARCHAR(10),
-    FOREIGN KEY (idOperacion) REFERENCES notificaciones(idOperacion),
-    FOREIGN KEY (idIncidencias) REFERENCES incidencias(idIncidencias),
-    FOREIGN KEY (idCifras) REFERENCES cifras(idCifras),
-    FOREIGN KEY (idDetalle) REFERENCES detalle(idDetalle)
+    version VARCHAR(10)
+    -- FOREIGN KEY (idOperacion) REFERENCES notificaciones(idOperacion), -- Removed FK
+    -- FOREIGN KEY (idIncidencias) REFERENCES incidencias(idIncidencias), -- Removed FK
+    -- FOREIGN KEY (idCifras) REFERENCES cifras(idCifras), -- Removed FK
+    -- FOREIGN KEY (idDetalle) REFERENCES detalle(idDetalle) -- Removed FK
 );
 
 -- Crear índices
 CREATE INDEX idx_notificaciones_idCifras ON notificaciones(idCifras);
-CREATE INDEX idx_notificaciones_idDetalle ON notificaciones(idDetalle);
+
+-- Eliminar el índice relacionado con idDetalle
+-- CREATE INDEX idx_notificaciones_idDetalle ON notificaciones(idDetalle); -- Removed
+
 CREATE INDEX idx_notificaciones_idIncidencias ON notificaciones(idIncidencias);
 
 CREATE INDEX idx_detalle_idOperacion ON detalle(idOperacion);

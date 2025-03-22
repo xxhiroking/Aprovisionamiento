@@ -3,6 +3,7 @@ package mx.hiro.aprovisionamiento.main;
 import mx.hiro.aprovisionamiento.dao.impl.NotificacionesDAOImp;
 import mx.hiro.aprovisionamiento.dto.BitacoraDTO;
 import mx.hiro.aprovisionamiento.dto.NotificacionesDTO;
+import mx.hiro.aprovisionamiento.service.NotificacionService;
 import mx.hiro.aprovisionamiento.util.Conexion;
 import mx.hiro.aprovisionamiento.util.SequenceUtil;
 import java.util.Date;
@@ -19,18 +20,8 @@ public class Run {
                 conexion.setAutoCommit(false);
             }
             //Parametros de inicio
-            int idBitacora = SequenceUtil.getNextValue(conexion, "idBitacora");
-            int idOperacion = SequenceUtil.getNextValue(conexion, "idOperacion");
-            int idIncidencia = SequenceUtil.getNextValue(conexion, "idIncidencia");
-            int idCifra = SequenceUtil.getNextValue(conexion, "idCifra");
-            Date fechaAlta = new Date();
-            Date fechaCreacion = new Date();
-            //Inicio de procesomiento
-            NotificacionesDTO notificacionesDTO = new NotificacionesDTO(idOperacion, "archivo.txt", fechaAlta, "Hiro", "1", idCifra , idIncidencia, fechaCreacion, "A", "1");
-            NotificacionesDAOImp notificacionesDAOImp = new NotificacionesDAOImp();
-            notificacionesDAOImp.crearNotificacion(conexion, notificacionesDTO);
-
-
+            NotificacionService notificacionService = new NotificacionService();
+            notificacionService.crearNotificacionInicial(conexion);
 
 
 
