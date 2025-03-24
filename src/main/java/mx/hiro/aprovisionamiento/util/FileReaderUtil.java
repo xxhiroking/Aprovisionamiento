@@ -13,7 +13,7 @@ public class FileReaderUtil {
             String line;
             while ((line = br.readLine()) != null) {
                 // Divide la línea por comas y la agrega a la lista
-                lines.add(line.split(","));
+                lines.add(line.split("\\|"));
             }
         }
         return lines;
