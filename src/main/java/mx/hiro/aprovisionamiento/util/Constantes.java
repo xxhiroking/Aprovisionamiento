@@ -11,4 +11,8 @@ public interface Constantes {
     static final String FILENAME_GEN = "CREACION_INICIAL.TXT";
     static final String ESTATUS_INICIAL = "INICIAL";
     static final String VERSION_INICIAL = "1";
+    static final int ID_CONSTANCIA=1;
+    static final String ESTATUS_FALLADO = "FALLADO";
+    static final String ESTATUS_EXITOSO="EXITOSO";
+
 }

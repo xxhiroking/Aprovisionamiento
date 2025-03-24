@@ -74,12 +74,12 @@ CREATE TABLE notificaciones (
 
 -- Crear la tabla de detalle
 CREATE TABLE detalle (
-    idDetalle BIGINT PRIMARY KEY, -- Changed from INT to BIGINT
+    idDetalle BIGINT, -- Changed from INT to BIGINT
     idOperacion BIGINT, -- Changed from INT to BIGINT
     idCifras BIGINT, -- Changed from INT to BIGINT
     cliente VARCHAR(255),
     cuenta VARCHAR(50),
-    folio VARCHAR(50) UNIQUE,
+    folio VARCHAR(50) PRIMARY KEY, -- Changed to PRIMARY KEY
     rfcR VARCHAR(13),
     rfcE VARCHAR(13),
     tipoParticipacion VARCHAR(50),

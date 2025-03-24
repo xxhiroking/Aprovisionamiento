@@ -7,5 +7,5 @@ import java.sql.SQLException;
 
 public interface NotificacionesDAO {
     public int crearNotificacion(Connection connection, NotificacionesDTO notificacionesDTO) throws SQLException;
-    public void actualizarNotificacion(String mensaje);
+    public int actualizarNotiFallida(Connection connection, int notificacionesDTO) throws SQLException;
 }
